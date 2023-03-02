@@ -1,0 +1,3 @@
+/home/nguyen/Documents/Coding/Uni-OOP/Week1/build/CMakeFiles/Week1.dir
+/home/nguyen/Documents/Coding/Uni-OOP/Week1/build/CMakeFiles/edit_cache.dir
+/home/nguyen/Documents/Coding/Uni-OOP/Week1/build/CMakeFiles/rebuild_cache.dir
