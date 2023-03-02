@@ -20,12 +20,18 @@ int BitToDecimal(std::string bin);
 
 int main()
 {
-    std::string bit1 {"0111"};
-    std::string bit2 {"1101"};
+    std::string bit1 {"00000101"};
+    std::string bit2 {"00000111"};
+    
+    std::string bit3 {"00110010"};
 
     std::cout << "This is bit: " << bit1 << " and this is number: " << BitToDecimal(bit1) << "\n"
               << "This is bit: " << bit2 << " and this is number: " << BitToDecimal(bit2) << "\n"
-              << "This is multiplication: " << BitToDecimal(MultiplyTwoBit(bit1, bit2));
+              << "This is multiplication: " << BitToDecimal(MultiplyTwoBit(bit1, bit2)) << " and its bit: " << MultiplyTwoBit(bit1, bit2) << "\n" << "\n";
+
+    std::cout << "This is bit: " << bit1 << " and this is number: " << BitToDecimal(bit1) << "\n"
+              << "This is bit: " << bit3 << " and this is number: " << BitToDecimal(bit3) << "\n"
+              << "This is divine: " << DivineTwoBit(bit1, bit3);
     return 0;
 }
 
@@ -107,8 +113,8 @@ std::string MultiplyTwoBit(std::string firstBit, std::string lastBit)
 
         std::string shiftBit = ShiftRight(bitRes + bitNew);
 
-        bitRes = shiftBit.substr(0, 4);
-        bitNew = shiftBit.substr(4);
+        bitRes = shiftBit.substr(0, bitRes.size());
+        bitNew = shiftBit.substr(bitRes.size());
     }
 
     return bitRes + bitNew.substr(0, lastBit.size());
@@ -118,7 +124,7 @@ std::string ShiftLeft(std::string bin)
 {
     int size = bin.size();
 
-    return bin.substr(1, size-1).append("0");
+    return bin.substr(1).append("0");
 }
 
 std::string DivineTwoBit(std::string firstBit, std::string lastBit)
@@ -135,7 +141,25 @@ std::string DivineTwoBit(std::string firstBit, std::string lastBit)
     for (int i = size; i > 0; i--)
     {
         std::string shiftBit = ShiftLeft(bitRes + firstBit);
+
+        bitRes = shiftBit.substr(0, bitRes.size());
+
+        firstBit = shiftBit.substr(bitRes.size());
+
+        bitRes = SubtractTwoBit(bitRes, lastBit);
+
+        if (BitToDecimal(bitRes) < 0) 
+        { 
+            firstBit[size - 1] = '0'; 
+            bitRes = SumTwoBit(bitRes, lastBit);
+        }
+        else
+        {
+            firstBit[size - 1] = '1';
+        }
     }
+
+    return firstBit + bitRes;
 }
 
 int BitToDecimal(std::string bin)
