@@ -20,18 +20,46 @@ int BitToDecimal(std::string bin);
 
 int main()
 {
-    std::string bit1 {"00000101"};
-    std::string bit2 {"00000111"};
-    
+    std::string bit1 {"01000101"};
+    std::string bit2 {"10010111"};
     std::string bit3 {"00110010"};
 
-    std::cout << "This is bit: " << bit1 << " and this is number: " << BitToDecimal(bit1) << "\n"
-              << "This is bit: " << bit2 << " and this is number: " << BitToDecimal(bit2) << "\n"
-              << "This is multiplication: " << BitToDecimal(MultiplyTwoBit(bit1, bit2)) << " and its bit: " << MultiplyTwoBit(bit1, bit2) << "\n" << "\n";
+    std::string sumBit = SumTwoBit(bit1, bit2);
 
-    std::cout << "This is bit: " << bit1 << " and this is number: " << BitToDecimal(bit1) << "\n"
-              << "This is bit: " << bit3 << " and this is number: " << BitToDecimal(bit3) << "\n"
-              << "This is divine: " << DivineTwoBit(bit1, bit3);
+    std::string subBit = SubtractTwoBit(bit3, bit1);
+
+    std::string mulBit = MultiplyTwoBit(bit1, bit2);
+
+    std::string divBit = DivineTwoBit(bit1, bit3);
+
+    std::string quotientBit = divBit.substr(0, bit1.size());
+
+    std::string remainderBit = divBit.substr(bit1.size());
+
+    std::cout << "Day la bit: " << bit1 << " va day la so nguyen: " << BitToDecimal(bit1) << "\n"
+              << "Day la bit: " << bit2 << " va day la so nguyen: " << BitToDecimal(bit2) << "\n"
+              << "Day la bit phep cong: " << sumBit << " va day la so nguyen: " << BitToDecimal(sumBit) << "\n";
+
+    std::cout << "\n";
+
+    std::cout << "Day la bit: " << bit3 << " va day la so nguyen: " << BitToDecimal(bit3) << "\n"
+              << "Day la bit: " << bit1 << " va day la so nguyen: " << BitToDecimal(bit1) << "\n"
+              << "Day la bit phep tru: " << subBit << " va day la so nguyen: " << BitToDecimal(subBit) << "\n";
+
+    std::cout << "\n";
+
+    std::cout << "Day la bit: " << bit1 << " va day la so nguyen: " << BitToDecimal(bit1) << "\n"
+              << "Day la bit: " << bit2 << " va day la so nguyen: " << BitToDecimal(bit2) << "\n"
+              << "Day la bit phep nhan: " << mulBit << " va day la so nguyen: " << BitToDecimal(mulBit) << "\n";
+
+    std::cout << "\n";
+
+    std::cout << "Day la bit: " << bit1 << " va day la so nguyen: " << BitToDecimal(bit1) << "\n"
+              << "Day la bit: " << bit3 << " va day la so nguyen: " << BitToDecimal(bit3) << "\n"
+              << "Day la bit phep chia: " << divBit << "\n"
+              << "Va day la ket qua thuong: " << quotientBit  << " voi gia tri nguyen: " << BitToDecimal(quotientBit) << "\n"
+              << "Va day la phan du: " << remainderBit << " voi gia tri nguyen: " << BitToDecimal(remainderBit) << "\n";
+
     return 0;
 }
 
