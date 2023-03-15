@@ -86,11 +86,11 @@ void QL_SinhVien::ReadFile()
     std::cout << "Moi ban nhap so de chon file input mac dinh: ";
     std::cin >> choice;
 
-    // m_Input = allFiles[choice];
+    m_Input = allFiles[choice];
 
-    std::cout << m_Input << "\n";
+    // std::cout << m_Input << "\n";
 
-    // Read();
+    Read();
 
     std::cout << "Da doc xong \n";
 }
