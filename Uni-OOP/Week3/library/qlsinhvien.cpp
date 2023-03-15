@@ -1,130 +1,121 @@
 #include "qlsinhvien.h"
 
-/* Danh sach Sinh vien clas implementation */
-DanhSachSV::DanhSachSV()
-: m_Size(0)
-, m_Head(nullptr)
+QL_SinhVien::QL_SinhVien()
+: m_Input(IN_PATH + "/in.txt")
+, m_Output(OUT_PATH + "/in_out.txt")
 {
 }
 
-void DanhSachSV::MakeHead(const char* ten, const char* maSo, const char* ngaySinh)
-{
-    SinhVien sv(ten, maSo, ngaySinh);
-    m_Head = MakeNode(sv);
-}
+/* Private function */
 
-void DanhSachSV::Delete()
+void QL_SinhVien::Out(int status)
 {
-    Node* temp = m_Head->next;
-    while (temp != nullptr)
+    std::string outFile = "";
+    std::string ex = m_Input.substr(0, m_Input.find("."));
+
+    // 0: out
+    // 1: xeploai
+    // 2: duoitb
+    switch (status)
     {
-        m_Head->next = temp->next;
-        temp->next = nullptr;
-        std::cout << "Delete Node: " << temp << "\n";
-        delete temp;
-        temp = m_Head->next;
+    case 0:
+        outFile = ex + "_out.txt";
+        break;
+    case 1:
+        outFile = ex + "_xeploai.txt";
+        break;
+    case 2:
+        outFile = ex + "_duoitb.txt";
+        break;
     }
-    std::cout << "Delete Node: " << m_Head << "\n";
-    delete m_Head;
-}
 
-DanhSachSV::~DanhSachSV()
-{
-    Delete();
-}
+    m_Output = outFile;
 
-Node* DanhSachSV::MakeNode(const SinhVien& sv)
-{
-    return new Node {sv, nullptr};
-}
-
-void DanhSachSV::AddNode(const char* ten, const char* maSo, const char* ngaySinh)
-{
-    // create new sinh vien
-    SinhVien newSV(ten, maSo, ngaySinh);
-
-    // make node from sinh vien
-    Node* newNode = MakeNode(newSV);
-
-    // add node to list
-    Node* current = m_Head;
-    while (current->next != nullptr)
+    if (IsFileExists(OUT_PATH + outFile))
     {
-        current = current->next;
+        Update();
     }
-    current->next = newNode;
-}
-
-void DanhSachSV::Print()
-{
-    Node* current = m_Head;
-    while (current != nullptr)
+    else
     {
-        PrintNode(current);
-        current = current->next;
+        Write();
     }
-}
-
-void DanhSachSV::PrintNode(Node* current)
-{
-    std::cout << "Node: " << current << "\n";
-    std::cout << "Node point to: " << current->next << "\n";
-}
-
-/*------------------------------------------*/
-/* Quan ly Sinh vien class implementation */
-void QL_SinhVien::GhiLenTapTin(std::string fileName)
-{
-
-}
-
-void QL_SinhVien::DocTuTapTin(std::string fileName)
-{
-
-}
-
-void QL_SinhVien::GhiDS_SV_TB(std::string fileName)
-{
 
 }
 
 void QL_SinhVien::Update()
 {
-
 }
 
-void QL_SinhVien::ThemSV(const char* ten, const char* maSo, const char* ngaySinh)
+void QL_SinhVien::Write()
 {
-    m_DS.AddNode(ten, maSo, ngaySinh);
-    Update();
 }
 
-void QL_SinhVien::XepLoaiSV()
+void QL_SinhVien::Read()
 {
+    std::vector<std::string> lines;
 
+    std::ifstream inputFile(m_Input);
+
+    // read line to vector
+    while (!inputFile.eof())
+    {
+        std::string line;
+        inputFile >> line;
+        lines.push_back(line);
+    }
+
+    // tach string 
+    for (int i=0; i < lines.size(); i++)
+    {
+    }
 }
 
+/* Public function */
 
-void QL_SinhVien::XuatSV(std::string fileName)
+void QL_SinhVien::ReadFile()
 {
+    std::vector<std::string> allFiles;
+    GetFilesInDirectory(allFiles, IN_PATH);
 
+    for (int i=0; i < allFiles.size(); i++)
+    {
+        std::cout << i + 1 << ". " << allFiles[i] << "\n";
+    }
+
+    int choice = 0;
+    std::cout << "Moi ban nhap so de chon file input mac dinh: ";
+    std::cin >> choice;
+
+    // m_Input = allFiles[choice];
+
+    std::cout << m_Input << "\n";
+
+    // Read();
+
+    std::cout << "Da doc xong \n";
 }
 
-std::string QL_SinhVien::GetCurrentTime()
+void QL_SinhVien::WriteFile()
 {
-    // Get current date/time, format is YYYY-MM-DD.HH:mm:ss
-    time_t     now = time(0);
-    struct tm  tstruct;
-    char       buf[80];
-    tstruct = *localtime(&now);
-    // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
-    // for more information about date/time format
-    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
-
-    return buf;
+    // Out(0);
 }
 
-void QL_SinhVien::TimSV()
+void QL_SinhVien::AddSV()
 {
-    std::string currentTime = GetCurrentTime();
+    std::string tenSV;
+    std::string maSoSV;
+    std::string ngaySinhSV;
+
+    std::cout << "Moi ban nhap ten sinh vien: ";
+    getline(std::cin, tenSV);
+    std::cout << "Moi ban nhap ma so sinh vien: ";
+    getline(std::cin, maSoSV);
+    std::cout << "Moi ban nhap ngay sinh sinh vien: ";
+    getline(std::cin, ngaySinhSV);
+
+    m_DS.AddNode(tenSV.c_str(), maSoSV.c_str(), ngaySinhSV.c_str());
+
+    Out(0);
 }
+
+/*-----------------------------------------*/
