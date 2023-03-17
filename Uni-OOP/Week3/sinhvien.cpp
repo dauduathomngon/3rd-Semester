@@ -42,9 +42,9 @@ SinhVien::SinhVien(const SinhVien& sv)
 , m_Diem(new float[MARK_SIZE]())
 { 
     // copy char*
-    strcpy_s(m_Ten, strlen(m_Ten), sv.m_Ten);
-    strcpy_s(m_MaSo, strlen(m_MaSo), sv.m_MaSo);
-    strcpy_s(m_NgaySinh, strlen(m_NgaySinh), sv.m_NgaySinh);
+    strcpy_s(m_Ten, strlen(sv.m_Ten) + 1, sv.m_Ten);
+    strcpy_s(m_MaSo, strlen(sv.m_MaSo) + 1, sv.m_MaSo);
+    strcpy_s(m_NgaySinh, strlen(sv.m_NgaySinh) + 1, sv.m_NgaySinh);
 
     // copy array
     std::copy(sv.m_Diem, sv.m_Diem + MARK_SIZE, m_Diem);
@@ -69,6 +69,29 @@ void SinhVien::Output()
 float SinhVien::AvgMark() const
 {
     return (m_Diem[0] * 0.25f) + (m_Diem[1] * 0.25f) + (m_Diem[2] * 0.5f);
+}
+
+std::string SinhVien::GetDate() const
+{
+    char* date = new char[DATE_WITHOUT_YEAR_SIZE]();
+
+    int count = 0;
+    for (int i=0; i < DATE_SIZE; i++)
+    {
+        if (m_NgaySinh[i] == '/')
+        {
+            ++count;
+        }
+
+        if (count == 2)
+        {
+            break;
+        }
+
+        date[i] = m_NgaySinh[i];
+    };
+
+    return std::string(date);
 }
 
 /*

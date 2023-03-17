@@ -8,6 +8,8 @@
 
 const int MARK_SIZE = 3;
 const int STR_SIZE = 50;
+const int DATE_SIZE = 10; // format: dd/mm/yyyy
+const int DATE_WITHOUT_YEAR_SIZE = 6; // format: dd/mm
 
 class SinhVien
 {
@@ -21,7 +23,7 @@ public:
     // setter (use for file input)
     void SetValue(const std::string& val, int status);
 
-    // copy constructor (optional)
+    // copy constructor
     SinhVien(const SinhVien& sv);
 
     // swap function (optional)
@@ -35,6 +37,9 @@ public:
 
     // find average mark
     float AvgMark() const;
+
+    // get date
+    std::string GetDate() const;
 
     // iostream
     friend std::ostream& operator<<(std::ostream& os, const SinhVien& sv);

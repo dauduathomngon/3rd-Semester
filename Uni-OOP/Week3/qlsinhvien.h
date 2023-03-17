@@ -6,6 +6,7 @@
 #include <time.h>
 #include <vector>
 #include <sstream>
+#include <algorithm>
 
 #include "sinhvien.h"
 
@@ -33,30 +34,26 @@ public:
     // DONE
     void WriteNewSV();
 
-    /// TODO
-    void WriteRankSV();
+    // DONE
+    void RankSV(bool output, bool write);
+
+    // DONE
+    void WriteDate();
 
 private:
     SinhVien* m_DanhSach;
     int m_Size;
 
-    bool isWriteAvg = false;
-    bool isWriteRank = false;
+    bool isWriteAvg;
+    bool isWriteRank;
 
     void UpdateArr();
+
     float GetAvgMark() const;
+
+    // use for input data for sinh vien
     void AddData(int input, SinhVien& sv);
 };
-
-/*
-ref: https://stackoverflow.com/questions/17032970/clear-data-inside-text-file-in-c
-*/
-inline void DeleteOutput()
-{
-    std::ofstream ofs;
-    ofs.open("output.txt", std::ofstream::out | std::ofstream::trunc);
-    ofs.close();
-}
 
 /*
 ref:
@@ -76,5 +73,14 @@ inline std::string GetCurrentDate()
     std::string str(buffer);
     return str;
 }
+
+/* ref: https://stackoverflow.com/questions/1380463/sorting-a-vector-of-custom-objects */
+struct SortByMark
+{
+    inline bool operator() (const SinhVien& sv1, const SinhVien& sv2)
+    {
+        return (sv1.AvgMark() > sv2.AvgMark());
+    }
+};
 
 #endif // QL_SINHVIEN_H
