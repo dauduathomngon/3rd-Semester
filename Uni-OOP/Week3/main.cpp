@@ -1,9 +1,17 @@
 #include "qlsinhvien.h"
-// #include "sinhvien.h"
+
+void MainMenu();
 
 int main()
 {
-    QL_SinhVien ctrinhQL;
-    ctrinhQL.ReadFile();
-    return 0;
+	QL_SinhVien ctrinhQL;
+	ctrinhQL.ReadFromFile();
+	ctrinhQL.WriteToFile();
+	ctrinhQL.WriteNewSV();
+	return 0;
+}
+
+void MainMenu()
+{
+
 }
