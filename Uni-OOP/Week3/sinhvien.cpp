@@ -16,35 +16,6 @@ SinhVien::~SinhVien()
     delete[] m_Diem;
 }
 
-// void SinhVien::Input()
-// {
-//     // set m_Ten value
-//     std::string ten;
-//     std::cout << "Nhap ten sinh vien: ";
-//     getline(std::cin, ten);
-//     strcpy_s(m_Ten, strlen(m_Ten), ten.c_str());
-
-//     // set m_MaSo value
-//     std::string maSo;
-//     std::cout << "Nhap ma so sinh vien: ";
-//     getline(std::cin, maSo);
-//     strcpy_s(m_MaSo, strlen(m_MaSo), maSo.c_str());
-
-//     // set m_NgaySinh value
-//     std::string ngaySinh;
-//     std::cout << "Nhap ngay sinh cua sinh vien: ";
-//     getline(std::cin, ngaySinh);
-//     strcpy_s(m_MaSo, strlen(m_NgaySinh), ngaySinh.c_str());
-
-//     // set m_Diem value
-//     std::cout << "Nhap diem bai tap cua sinh vien: ";
-//     std::cin >> m_Diem[0];
-//     std::cout << "Nhap diem giua ki cua sinh vien: ";
-//     std::cin >> m_Diem[1];
-//     std::cout << "Nhap diem cuoi ki cua sinh vien: ";
-//     std::cin >> m_Diem[2];
-// }
-
 void SinhVien::SetValue(const std::string& val, int status)
 {
     switch (status)
@@ -105,11 +76,11 @@ write in format: ten,ma so,ngay sinh,diembt,diemgk,diemck
 */
 std::ostream& operator<<(std::ostream& os, const SinhVien& sv)
 {
-    os << sv.m_Ten << "," 
-       << sv.m_MaSo << "," 
-       << sv.m_NgaySinh << "," 
-       << sv.m_Diem[0] << "," 
-       << sv.m_Diem[1] << "," 
+    os << sv.m_Ten << " | "
+       << sv.m_MaSo << " | " 
+       << sv.m_NgaySinh << " | " 
+       << sv.m_Diem[0] << " | " 
+       << sv.m_Diem[1] << " | " 
        << sv.m_Diem[2] << std::endl;
     return os;
 }

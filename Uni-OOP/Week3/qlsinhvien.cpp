@@ -20,6 +20,9 @@ void QL_SinhVien::WriteToFile()
     DeleteOutput();
 
     std::ofstream writeFile("output.txt");
+    writeFile << "---------------------\n";
+    writeFile << "Danh sach cac sinh vien: \n";
+    writeFile << "Ten | Ma so | Ngay sinh | Diem bai tap | Diem giua ky | Diem cuoi ky\n";
     for (int i=0; i < m_Size; i++)
     {
         writeFile << m_DanhSach[i];
@@ -77,7 +80,7 @@ void QL_SinhVien::WriteBelowAvg()
     std::ofstream writeFile;
     writeFile.open("output.txt", std::ios_base::app);
 
-    writeFile << "--------------------- \n";
+    writeFile << "---------------------\n";
     writeFile << "Diem tb cua lop la: " << classAvg << "\n";
     writeFile << "Tat ca cac sinh vien co diem duoi trung binh: \n";
     for (int i=0; i < m_Size; i++)
@@ -125,7 +128,20 @@ void QL_SinhVien::WriteNewSV()
 
 void QL_SinhVien::WriteRankSV()
 {
-    
+    std::vector<float> markSV; 
+    std::vector<float> posSV;
+
+    // create mark SV
+    for (int i=0; i < m_Size; i++)
+    {
+        markSV.push_back(m_DanhSach[i].AvgMark());
+    }
+
+    // create position of sinh vien
+    for (int i=0; i < m_Size; i++)
+    {
+        posSV.push_back(i);
+    }
 }
 
 void QL_SinhVien::UpdateArr()
