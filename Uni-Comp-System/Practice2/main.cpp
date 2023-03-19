@@ -8,7 +8,7 @@ const int FLOAT_SIZE = sizeof(float) * CHAR_BIT;
 
 void DumpFloat(float *p);
 void ForceFloat(float *p, std::string s);
-long ConvertBinaryToDecimal(std::string bin);
+uint32_t ConvertBinaryToDecimal(std::string bin);
 
 int main()
 {
@@ -19,7 +19,7 @@ void DumpFloat(float *p)
 {
     // use long to make sure have 4 bytes
     // cast float to long have same bits
-    long y = *(long *)p;
+    uint32_t y = *(uint32_t *)p;
 
     // store bit in int array
     int bin[FLOAT_SIZE];
@@ -57,9 +57,9 @@ void ForceFloat(float *p, std::string s)
     std::cout << *p << "\n";
 }
 
-long ConvertBinaryToDecimal(std::string bin)
+uint32_t ConvertBinaryToDecimal(std::string bin)
 {
-    long dec = 0;
+    uint32_t dec = 0;
     int size = bin.size();
     for (int i=0; i < size; i++)
     {
