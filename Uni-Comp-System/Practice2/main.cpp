@@ -19,7 +19,7 @@ int main()
 
 void DumpFloat(float *p)
 {
-    // use long to make sure have 4 bytes
+    // use uint32_t to make sure have 4 bytes
     // cast float to long have same bits
     uint32_t y;
     memcpy_s(&y, sizeof(uint32_t), p, sizeof(float));
