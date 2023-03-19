@@ -12,6 +12,8 @@ uint32_t ConvertBinaryToDecimal(std::string bin);
 
 int main()
 {
+    float p = 3.5f;
+    DumpFloat(&p);
     return 0;
 }
 
@@ -19,7 +21,8 @@ void DumpFloat(float *p)
 {
     // use long to make sure have 4 bytes
     // cast float to long have same bits
-    uint32_t y = *(uint32_t *)p;
+    uint32_t y;
+    memcpy_s(&y, sizeof(uint32_t), p, sizeof(float));
 
     // store bit in int array
     int bin[FLOAT_SIZE];
@@ -50,11 +53,10 @@ void ForceFloat(float *p, std::string s)
     r += s;
 
     // calculate long from bit
-    long temp = ConvertBinaryToDecimal(r);
+    uint32_t temp = ConvertBinaryToDecimal(r);
 
     // cast long to float
-    *p = *(float *) &temp;
-    std::cout << *p << "\n";
+    memcpy_s(&temp, sizeof(uint32_t), p, sizeof(float));
 }
 
 uint32_t ConvertBinaryToDecimal(std::string bin)
