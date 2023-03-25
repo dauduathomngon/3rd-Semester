@@ -1,0 +1,6 @@
+#include "dathuc.h"
+
+int main()
+{
+	return 0;
+}

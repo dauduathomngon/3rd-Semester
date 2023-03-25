@@ -1,4 +1,7 @@
 #include "donthuc.h"
+
+DonThuc DonThuc::Zero;
+
 DonThuc::DonThuc()
 : m_Deg(0)
 , m_Coeff(0)
@@ -16,7 +19,7 @@ void DonThuc::Input()
 void DonThuc::Output()
 {
     std::cout << "He so cua don thuc: " << m_Coeff << "\n"
-              << "Bac cua don thuc: " << m_Coeff << "\n";
+              << "Bac cua don thuc: " << m_Deg << "\n";
 }
 
 void DonThuc::SetValue(float coeff, int deg)
@@ -27,7 +30,7 @@ void DonThuc::SetValue(float coeff, int deg)
 
 float DonThuc::GetValue(float var) const
 {
-    return m_Coeff * pow(var, m_Deg);
+    return static_cast<float>(m_Coeff * pow(var, m_Deg));
 }
 
 int DonThuc::GetDeg() const
@@ -35,10 +38,15 @@ int DonThuc::GetDeg() const
     return m_Deg;
 }
 
+float DonThuc::GetCoeff() const
+{
+    return m_Coeff;
+}
+
 DonThuc& DonThuc::operator-=(const DonThuc& dt)
 {
     assert(m_Deg == dt.m_Deg);
-    m_Coeff += dt.m_Coeff;
+    m_Coeff -= dt.m_Coeff;
     return *this;
 }
 
@@ -49,14 +57,16 @@ DonThuc& DonThuc::operator/=(const DonThuc& dt)
     return *this;
 }
 
-void DonThuc::Negative()
+DonThuc& DonThuc::operator=(const DonThuc& dt)
 {
-    m_Coeff = -m_Coeff;
+    m_Coeff = dt.m_Coeff;
+    m_Deg = dt.m_Deg;
+    return *this;
 }
 
 DonThuc& DonThuc::operator*=(const DonThuc& dt)
 {
-    m_Coeff *= dt.m_Coeff; 
+    m_Coeff *= dt.m_Coeff;
     m_Deg += dt.m_Deg;
     return *this;
 }
@@ -64,6 +74,11 @@ DonThuc& DonThuc::operator*=(const DonThuc& dt)
 DonThuc& DonThuc::operator+=(const DonThuc& dt)
 {
     assert(m_Deg == dt.m_Deg);
-    m_Coeff -= dt.m_Deg;
+    m_Coeff += dt.m_Coeff;
     return *this;
+}
+
+void DonThuc::Negative()
+{
+    m_Coeff = -m_Coeff;
 }

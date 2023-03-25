@@ -1,3 +1,4 @@
+#pragma once
 #ifndef DONTHUC_H
 #define DONTHUC_H
 
@@ -19,17 +20,29 @@ public:
 
     int GetDeg() const;
 
+    float GetCoeff() const;
+
     DonThuc& operator+=(const DonThuc& dt);
     DonThuc& operator-=(const DonThuc& dt);
     DonThuc& operator*=(const DonThuc& dt);
     DonThuc& operator/=(const DonThuc& dt);
 
+    DonThuc& operator=(const DonThuc& dt);
+
     void Negative();
+
+    static DonThuc Zero;
 
 private:
     float m_Coeff;
     int m_Deg;
 };
+
+inline bool operator!=(const DonThuc& left, const DonThuc& right)
+{
+    return (left.GetCoeff() != right.GetCoeff())
+           || (left.GetDeg() != left.GetDeg());
+}
 
 inline DonThuc operator+(DonThuc ldt, const DonThuc& rdt)
 {
