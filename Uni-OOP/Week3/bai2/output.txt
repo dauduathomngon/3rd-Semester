@@ -1,0 +1,8 @@
+Tu so: 1 Mau so: 2
+Tu so: 3 Mau so: 4
+Tu so: 5 Mau so: 6
+Tu so: 7 Mau so: 8
+Tu so: 9 Mau so: 15
+Tu so: 20 Mau so: 17
+Tu so: 53 Mau so: 67
+Tu so: 42 Mau so: 123

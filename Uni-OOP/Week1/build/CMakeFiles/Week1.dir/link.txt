@@ -1,1 +1,0 @@
-/usr/bin/c++  -O -Wall -Wextra -Wpedantic -std=c++11 CMakeFiles/Week1.dir/main.cpp.o CMakeFiles/Week1.dir/bai1/bai1.cpp.o CMakeFiles/Week1.dir/bai1/poly.cpp.o -o Week1 
