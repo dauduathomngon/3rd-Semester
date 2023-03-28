@@ -12,8 +12,9 @@ uint32_t ConvertBinaryToDecimal(std::string bin);
 
 int main()
 {
-    float p = 3.5f;
-    DumpFloat(&p);
+    float x;
+    ForceFloat(&x, "01111111110000000000000000000000");
+    std::cout << x;
     return 0;
 }
 
@@ -56,7 +57,7 @@ void ForceFloat(float *p, std::string s)
     uint32_t temp = ConvertBinaryToDecimal(r);
 
     // cast long to float
-    memcpy_s(&temp, sizeof(uint32_t), p, sizeof(float));
+    memcpy_s(p, sizeof(float), &temp, sizeof(uint32_t));
 }
 
 uint32_t ConvertBinaryToDecimal(std::string bin)
