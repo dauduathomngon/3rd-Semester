@@ -1,0 +1,6 @@
+BAA00006,Tam ly dai cuong,20/02/2023,Nguyen Van A,Nguyen Van B,Dau Dua
+CSC10003,OOP,20/02/2023,Nguyen Van C,Nguyen Van F,Dau Dua
+CSC10006,CSDL,20/02/2023,Nguyen Van D,Dau Dua
+MTH00056,Toan cho AI,20/02/2023,Nguyen Van E,Nguyen Le,Dau Dua
+BIO00002,Sinh 2,20/02/2003,Nguyen Van G
+CSC10009,HTMT,20/02/2003,Nguyen Van F,Le Nguyen,Dau Dua

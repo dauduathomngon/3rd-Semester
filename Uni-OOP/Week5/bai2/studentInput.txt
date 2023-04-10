@@ -1,0 +1,3 @@
+21120511,Le Nguyen,KTX Khu B,18/07/2003,HTMT
+21254304,Nguyen Le,Thu Duc,19/06/2003,Toan cho AI
+21205414,Dau Dua,HCM,14/09/2003,HTMT,CSDL,Toan cho AI,Tam ly dai cuong,OOP
