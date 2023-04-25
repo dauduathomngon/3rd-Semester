@@ -1,0 +1,887 @@
+\documentclass[a4paper, 12pt]{report}
+
+\input{preamble.tex}
+
+\setlength{\headheight}{17.97171pt}
+\addtolength{\topmargin}{-5.97171pt}
+\renewcommand{\theequation}{\thechapter.\arabic{equation}}
+
+\newcommand{\mynorm}[1]{\lVert #1 \rVert}
+\newcommand{\myv}[1]{\overline{#1}}
+\newcommand{\mynormv}[1]{\lVert \overline{#1} \rVert}
+
+\title{\textbf{Bài thực hành lần 3} \\[5pt] Môn: Phương pháp toán cho Trí tuệ nhân tạo}
+\author{Họ và tên: Lê Nguyễn - MSSV: 21120511}
+% \date{}
+
+\begin{document}
+\maketitle
+\setcounter{chapter}{1}
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%% Bai 1 %%%%%%%%%%%%%%%
+\section{Bài 1}
+
+\begin{itemize}
+    \item[(a)] Xét vector $N$ là số bóng bán dẫn qua các năm và vector $X$ là các năm.
+
+    \item Đặt $g: \mathbb{R}^{13} \to \mathbb{R}^{13}$ và $f: \mathbb{R}^{13} \to \mathbb{R}^{13}$ sao cho:
+    $$
+    \begin{aligned}
+    g(x) &\coloneqq g([x_1, x_2, ..., x_{13}]) = [\log_{10}(x_1), \log_{10}(x_2), ..., \log_{10}(x_{13})] \\
+    f(x) &\coloneqq g([x_1, x_2, ..., x_{13}]) = [x_1 - 1970, x_2 - 1970, ..., x_{13} - 1970] 
+    \end{aligned}
+    $$
+
+    \item Khi đó ta có ma trận $A$ với các cột (gọi $1_v$ là vector có các phần tử đều là $1$) là:
+    $$
+    A = \begin{bmatrix}
+        1_v & f(X) 
+    \end{bmatrix} = \begin{bmatrix}
+        1 & 1 \\
+        1 & 2 \\
+        1 & 4 \\
+        1 & 8 \\
+        1 & 12 \\
+        1 & 15 \\
+        1 & 19 \\
+        1 & 23 \\
+        1 & 27 \\
+        1 & 29 \\
+        1 & 30 \\
+        1 & 32 \\
+        1 & 33 \\
+    \end{bmatrix}
+    $$
+
+    \item Và vector $b$ sẽ là:
+    $$
+    b = g(N) = \begin{bmatrix}
+        3.35218252 \\ 3.39794001 \\ 3.69897 \\ 4.462398 \\ 5.07918125 \\
+        5.43933269 \\ 6.07188201 \\ 6.49136169 \\ 6.87506126 \\ 7.38021124 \\
+        7.62324929 \\ 8.34242268 \\ 8.61278386
+    \end{bmatrix}
+    $$
+
+    \item Ta có:
+    $$
+    A^T A = \begin{pmatrix}
+        13 & 235 \\
+        235 & 5927 \\
+    \end{pmatrix}
+    $$
+
+    \item Ta có thể $A^TA$ là một ma trận vuông và $\det(A^TA) = 13 \cdot 5927 - 235 \cdot 235 = 21826 \neq 0$ nên $A^TA$ là ma trận khả nghịch. Vì vậy ta áp dụng công thức:
+    $$
+    \hat{x} = \begin{pmatrix}
+        \theta_1 \\
+        \theta_2
+    \end{pmatrix} = (A^TA)^{-1}A^Tb = 
+    \begin{pmatrix}
+        3.12559263 \\ 0.15401818
+    \end{pmatrix}
+    $$
+
+    \item Vậy mô hình cần tìm là:
+    $$
+    \log_{10}(N) \approx 3.12559263 + 0.15401818(t - 1970)
+    $$
+
+    \item[(b)] Dựa vào mô hình ở câu $a$ ta có:
+    $$
+    N \approx 10^{3.12559263 + 0.15401818(t - 1970)}
+    $$
+
+    \item Thay $t = 2015$ vào phương trình trên, ta có:
+    $$
+    N \approx 10^{3.12559263 + 0.15401818(2015 - 1970)} \approx 11387001556.131742
+    $$
+
+    \item Tức là số bóng bán dẫn ở năm 2015 là khoảng 11 tỷ 387 triệu bóng. Con số này lớn hơn rất nhiều so với $4 \cdot 10^9$, tức là 4 tỷ bóng.
+\end{itemize}
+
+
+%%%%%%%%%%%%% Bai 2 %%%%%%%%%%%%%%%%%%
+\section{Bài 2}
+Ta thấy ma trận $A$ và $B$ đều là ma trận đối xứng nên có thể chéo hoá trực giao được.
+\begin{itemize}
+    \item[(a)] Xét ma trận $\lambda I - A$ với $\lambda \in \mathbb{R}$, ta có:
+    $$
+    \lambda I - A = 
+    \lambda \begin{pmatrix}
+    1 & 0 & 0 \\     
+    0 & 1 & 0 \\
+    0 & 0 & 1
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        1 & 0 & 2 \\
+        0 & -1 & -2 \\
+        2 & -2 & 0 \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+       \lambda - 1 & 0 & -2 \\ 
+       0 & \lambda + 1 & 2 \\
+       -2 & 2 & \lambda \\
+    \end{pmatrix}
+    $$
+
+    \item Dùng gauss để tìm định thức của $\lambda I - A$, ta có:
+    $$
+    \begin{aligned}
+    \begin{pmatrix}
+       \lambda - 1 & 0 & -2 \\ 
+       0 & \lambda + 1 & 2 \\
+       -2 & 2 & \lambda \\
+    \end{pmatrix}
+    &\xrightarrow[\lambda - 1 \neq 0]{R_3 + \frac{2}{\lambda - 1}R_1}
+    \begin{pmatrix}
+       \lambda - 1 & 0 & -2 \\ 
+       0 & \lambda + 1 & 2 \\
+       0 & 2 & \lambda + \dfrac{-4}{\lambda - 1} \\
+    \end{pmatrix} \\
+    &\xrightarrow[\lambda + 1 \neq 0]{R_3 - \frac{2}{\lambda + 1}R_2}
+    \begin{pmatrix}
+       \lambda - 1 & 0 & -2 \\ 
+       0 & \lambda + 1 & 2 \\
+       0 & 0 & \dfrac{\lambda^3 - 9\lambda}{\lambda^2 - 1} \\
+    \end{pmatrix}
+    \end{aligned}
+    $$
+
+    \item Tiếp theo ta tìm nghiệm của phương trình đặc trưng:
+    $$
+    \begin{aligned}
+    f(\lambda) &= \det(\lambda I - A) = (\lambda - 1)(\lambda + 1)\left( \dfrac{\lambda^3 - 9 \lambda}{\lambda^2 - 1} \right) = \lambda^3 - 9\lambda = 0 \\
+    &\Rightarrow \begin{cases}
+        \lambda_1 = 0 \\
+        \lambda_2 = 3 \\
+        \lambda_3 = -3
+    \end{cases}
+    \end{aligned}
+    $$
+
+    \item Xét $\lambda_1$, ta tìm vector riêng $v^T = (x, y, z)$ tương ứng, ta có:
+    $$
+    \begin{aligned}
+    (\lambda_1 I - A) v &= 0_v \hspace*{5pt} \text{(ta kí hiệu vector 0 là $0_v$)} \\
+    \implies \hspace*{10pt} 
+    \begin{pmatrix}
+        -1 & 0 & -2 \\ 
+        0 & 1 & 2 \\
+        -2 & 2 & 0 \\
+    \end{pmatrix} 
+    \begin{pmatrix}
+        x \\
+        y \\
+        z \\
+    \end{pmatrix} 
+    &= 
+    \begin{pmatrix}
+        0 \\
+        0 \\
+        0 \\
+    \end{pmatrix}
+    \end{aligned}
+    $$
+    
+    \item Tiếp theo giải hệ phương trình để tìm $x, y, z$:
+    $$
+    \begin{cases}
+        -x -2z = 0 \\
+        y + 2z = 0 \\
+        -2x + 2y = 0 \\
+    \end{cases} \implies
+    \begin{cases}
+        x = -2 \alpha \\
+        y = -2 \alpha \\
+        z = \alpha \in \mathbb{R}  \\
+    \end{cases}
+    \implies
+    v = \alpha \begin{pmatrix}
+        -2 \\
+        -2 \\
+        1 
+    \end{pmatrix}
+    $$
+
+    \item Vậy cơ sở trực chuẩn ứng với $\lambda_1$ là:
+    $$
+    \left\{
+        \dfrac{1}{3}
+    \begin{pmatrix}
+        -2 \\
+        -2 \\
+        1 
+    \end{pmatrix}
+    \right\}
+    $$
+
+    \item Tiếp theo xét $\lambda_2 = 3$, ta có:
+    $$
+    \begin{pmatrix}
+        2 & 0 & -2 \\ 
+        0 & 4 & 2 \\
+        -2 & 2 & 3 \\
+    \end{pmatrix} 
+    \begin{pmatrix}
+        x \\
+        y \\
+        z \\
+    \end{pmatrix} 
+    = 
+    \begin{pmatrix}
+        0 \\
+        0 \\
+        0 \\
+    \end{pmatrix}
+    $$
+
+    \item Giải hệ phương trình:
+    $$
+    \begin{cases}
+        2x - 2z = 0 \\
+        4y + 2z = 0 \\
+        -2x + 2y + 3z = 0
+    \end{cases} \implies
+    \begin{cases}
+        x = \alpha \\
+        y = -\dfrac{\alpha}{2} \\
+        z = \alpha \in \mathbb{R} \\
+    \end{cases} \implies
+    v = \alpha \begin{pmatrix}
+        1 \\
+        -1 / 2 \\
+        1
+    \end{pmatrix}
+    $$
+
+    \item Vậy cơ sở trực chuẩn ứng với $\lambda_2$ là:
+    $$
+    \left\{
+        \dfrac{2}{3}
+    \begin{pmatrix}
+        1 \\
+        -1 / 2 \\
+        1
+    \end{pmatrix}
+    \right\}
+    $$
+
+    \item Tiếp theo xét $\lambda_3 = -3$, ta có:
+    $$
+    \begin{pmatrix}
+        -4 & 0 & -2 \\ 
+        0 & -2 & 2 \\
+        -2 & 2 & -3 \\
+    \end{pmatrix} 
+    \begin{pmatrix}
+        x \\
+        y \\
+        z \\
+    \end{pmatrix} 
+    = 
+    \begin{pmatrix}
+        0 \\
+        0 \\
+        0 \\
+    \end{pmatrix}
+    $$
+
+    \item Giải hệ phương trình:
+    $$
+    \begin{cases}
+        -4x -2z = 0 \\
+        -2y + 2z = 0 \\
+        -2x + 2y -3z = 0 \\
+    \end{cases}
+    \implies
+    \begin{cases}
+        x = \dfrac{-\alpha}{2}\\
+        y = \alpha \\
+        z = \alpha \in \mathbb{R}
+    \end{cases}
+    \implies
+    v = \alpha \begin{pmatrix}
+        -1 / 2 \\ 
+        1 \\
+        1
+    \end{pmatrix}
+    $$
+
+    \item Vậy cơ sở trực chuẩn ứng với $\lambda_3$ là:
+    $$
+    \left\{
+        \dfrac{2}{3}
+        \begin{pmatrix}
+            -1 / 2\\
+            1 \\
+            1
+        \end{pmatrix}
+    \right\}
+    $$
+
+    \item Vậy ma trận $P$ cần tìm là:
+    $$
+    \begin{pmatrix}
+        -2/3 & 2/3 & -1/3\\
+        -2/3 & -1/3 & 2/3\\
+        1/3 & 2/3 & 2/3 \\
+    \end{pmatrix}
+    $$
+
+    \item Khi đó ma trận chéo $D$ sẽ là:
+    $$
+    D = P^TAP = \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 3 & 0 \\
+        0 & 0 & -3 \\
+    \end{pmatrix}
+    $$
+
+    \item[(b)] Xét ma trận $\lambda I - B$ với $\lambda \in \mathbb{R}$, ta có:
+    $$
+    \lambda I - B = \lambda \begin{pmatrix}
+        1 & 0 & 0\\
+        0 & 1 & 0 \\
+        0 & 0 & 1 \\
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        2 & -1 & 0 \\
+        -1 & 2 & -1 \\
+        0 & -1 & 2 \\
+    \end{pmatrix} 
+    = 
+    \begin{pmatrix}
+        \lambda - 2 & 1 & 0 \\
+        1 & \lambda - 2 & 1 \\
+        0 & 1 & \lambda - 2 \\
+    \end{pmatrix}
+    $$
+
+    \item Xét $\lambda_1 = 2$, ta có:
+    $$
+    f(\lambda_1) = f(2) = \det(2I - A) = \det \left( \begin{pmatrix}
+        0 & 1 & 0 \\ 
+        1 & 0 & 1 \\
+        0 & 1 & 0 \\
+    \end{pmatrix}
+    \right) = 0 \hspace*{5pt} (\text{do có 2 dòng giống nhau})
+    $$
+
+    \item Do đó $\lambda_1 = 2$ là một nghiệm của phương trình đặc trưng.
+    
+    \item Xét $\lambda \neq 2$, ta dùng gauss để tìm định thức của $\lambda I - A$:
+    $$
+    \begin{aligned}
+    &\begin{pmatrix}
+        \lambda - 2 & 1 & 0 \\
+        1 & \lambda - 2 & 1 \\
+        0 & 1 & \lambda - 2 \\
+    \end{pmatrix}
+    \xrightarrow{R_2 - \frac{1}{\lambda - 2}R_1}
+    \begin{pmatrix}
+        \lambda - 2 & 1 & 0 \\ 
+        0 & (\lambda^2 - 4\lambda + 3) / (\lambda - 2) & 1 \\
+        0 & 1 & \lambda - 2
+    \end{pmatrix} \\
+    &\xrightarrow{R_3 - \frac{1}{(\lambda^2 - 4\lambda + 3) / (\lambda - 2)}R_2}
+    \begin{pmatrix}
+        \lambda - 2 & 1 & 0 \\ 
+        0 & (\lambda^2 - 4\lambda + 3) / (\lambda - 2) & 1 \\
+        0 & 0 & \dfrac{(\lambda - 2)(\lambda^2 - 4 \lambda + 2)}{(\lambda^2 - 4 \lambda + 3)}
+    \end{pmatrix}
+    \end{aligned}
+    $$
+
+    \item Nghiệm của phương trình đặc trưng sẽ là:
+    $$
+    \begin{aligned}
+    f(\lambda) &= \det(\lambda I - A) = (\lambda-2) \left( \dfrac{\lambda^2 - 4\lambda + 3}{\lambda - 2} \right) \left( \dfrac{(\lambda - 2)(\lambda^2 - 4 \lambda + 2)}{(\lambda^2 - 4 \lambda + 3)} \right) \\
+    &= (\lambda - 2)(\lambda^2 - 4\lambda + 2) = 0 \\
+    &\implies \lambda^2 - 4\lambda + 2 = 0 \\
+    &\implies 
+    \begin{cases}
+        \lambda_2 = 2 - \sqrt{2} \\
+        \lambda_3 = 2 + \sqrt{2} \\
+    \end{cases}
+    \end{aligned}
+    $$
+
+    \item Xét $\lambda_1$, ta có:
+    $$
+    \begin{cases}
+        y = 0 \\
+        x + z = 0 \\
+        y = 0 \\
+    \end{cases}
+    \implies
+    \begin{cases}
+        x = -\alpha \\
+        y = 0 \\
+        z = \alpha \in \mathbb{R} \\
+    \end{cases}
+    \implies
+    v = \alpha \begin{pmatrix}
+        -1 \\
+        0 \\
+        1
+    \end{pmatrix}
+    $$
+
+    \item Vậy cơ sở trực chuẩn ứng với $\lambda_1$ là:
+    $$
+    \left\{
+    \dfrac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        -1 \\
+        0 \\
+        1
+    \end{pmatrix}
+    \right\}
+    $$
+
+    \item Xét $\lambda_2$, ta có:
+    $$
+    \begin{cases}
+        -\sqrt{2}x + y = 0 \\
+        x - \sqrt{2}y + z = 0 \\
+        y - \sqrt{2}z = 0 \\
+    \end{cases}
+    \implies
+    \begin{cases}
+        x = \alpha \\
+        y = \sqrt{2} \alpha \\
+        z = \alpha \in \mathbb{R} \\
+    \end{cases}
+    \implies
+    v = \alpha
+    \begin{pmatrix}
+        1 \\
+        \sqrt{2} \\
+        1 \\
+    \end{pmatrix}
+    $$
+
+    \item Vậy cơ sở trực chuẩn ứng với $\lambda_2$ là:
+    $$
+    \left\{
+    \dfrac{1}{2}
+    \begin{pmatrix}
+        1 \\
+        \sqrt{2} \\
+        1 \\
+    \end{pmatrix}
+    \right\}
+    $$
+
+    \item Xét $\lambda_2$, ta có:
+    $$
+    \begin{cases}
+        \sqrt{2}x + y = 0 \\
+        x + \sqrt{2}y + z = 0 \\
+        y + \sqrt{2}z = 0 \\
+    \end{cases}
+    \implies
+    \begin{cases}
+        x = \alpha \\
+        y = -\sqrt{2} \alpha \\
+        z = \alpha \in \mathbb{R} \\
+    \end{cases}
+    \implies
+    v = \alpha
+    \begin{pmatrix}
+        1 \\
+        -\sqrt{2} \\
+        1 \\
+    \end{pmatrix}
+    $$
+
+    \item Vậy cơ sở trực chuẩn ứng với $\lambda_3$ là:
+    $$
+    \left\{
+    \dfrac{1}{2}
+    \begin{pmatrix}
+        1 \\
+        -\sqrt{2} \\
+        1 \\
+    \end{pmatrix}
+    \right\}
+    $$
+
+    \item Vậy ma trận $P$ cần tìm là:
+    $$
+    \begin{pmatrix}
+        -1/\sqrt{2} & 1/2 & 1/2 \\
+        0 & 1/\sqrt{2} & -1/\sqrt{2} \\
+        1/\sqrt{2} & 1/2 & 1/2 \\
+    \end{pmatrix}
+    $$
+
+    \item Khi đó ma trận chéo $D$ là:
+    $$
+    D = P^TAP = \begin{pmatrix}
+        2 & 0 & 0 \\
+        0 & 2 - \sqrt{2} & 0 \\
+        0 & 0 & 2 + \sqrt{2}
+    \end{pmatrix}
+    $$
+\end{itemize}
+
+\pagebreak
+%%%%%%%%%%% Bai 3 %%%%%%%%%%%%%
+\section{Bài 3}
+
+\begin{itemize}
+    
+    \item[(b)] Ta thấy số dòng nhiều hơn cột nên ta có thể áp dụng giải thuật SVD. Đặt $B' = B^T B$, ta có:
+    $$
+    B' = 
+    \begin{pmatrix}
+        1 & 0 & -1 \\ 
+        2 & 1 & 0 
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 2 \\ 
+        0 & 1 \\
+        -1 & 0 \\
+    \end{pmatrix} 
+     = \begin{pmatrix}
+        2 & 2 \\
+        2 & 5 
+    \end{pmatrix}
+    $$
+
+    \item Xét ma trận $\lambda I - B'$ với $\lambda \in \mathbb{R}$, ta có:
+    $$
+    \lambda I - B' = \begin{pmatrix}
+        \lambda - 2 & -2 \\
+        -2 & \lambda - 5 \\
+    \end{pmatrix}
+    $$
+
+    \item Nghiệm của phương trình đặc trưng sẽ là:
+    $$
+    f(\lambda) = \det(\lambda I - B') = (\lambda -2)(\lambda - 5) - 4= \lambda^2 - 7\lambda + 6 \implies \begin{cases}
+        \lambda_1 = 6 \\
+        \lambda_2 = 1
+    \end{cases}
+    $$
+
+    \item Xét $\lambda_1 = 6$, ta có:
+    $$
+    (\lambda_1 I - B')v = 
+    \begin{pmatrix}
+        4 & -2 \\
+        -2 & 1 
+    \end{pmatrix} v = 0_v
+    \implies 
+    v = \alpha \begin{pmatrix}
+        1/2 \\
+        1 \\
+    \end{pmatrix} = \alpha v_1 \hspace*{10pt} \text{(với $\alpha \in \mathbb{R}$)}.
+    $$
+
+    \item Xét $\lambda_2 = 1$, ta có:
+    $$
+    (\lambda_2 I - B')v = 
+    \begin{pmatrix}
+        -1 & -2 \\
+        -2 & -4 \\
+    \end{pmatrix} v = 0_v
+    \implies 
+    v = \alpha \begin{pmatrix}
+        -2 \\
+        1 \\ 
+    \end{pmatrix} = \alpha v_2 \hspace*{10pt} \text{(với $\alpha \in \mathbb{R}$)}.
+    $$
+
+    \item Ta thấy $v_1, v_2$ chưa tạo nên một cơ sở trực chuẩn, do đó ta chuẩn hoá $v_1, v_2$ lại thành $v_1', v_2'$:
+    $$
+    \begin{aligned}
+    v_1' &= \dfrac{1}{\lVert v_1 \rVert} v_1 = \dfrac{2}{\sqrt{5}} v_1 = 
+    \begin{pmatrix}
+        1 / \sqrt{5} \\
+        2 / \sqrt{5}
+    \end{pmatrix} \\
+    \text{và} \hspace*{10pt} v_2' &= \dfrac{1}{\lVert v_2 \rVert} v_2 = \dfrac{1}{\sqrt{5}} v_2 = \begin{pmatrix}
+        -2 / \sqrt{5} \\
+        1 / \sqrt{5}
+    \end{pmatrix}
+    \end{aligned}
+    $$
+
+    \item Do đó ta có các cặp trị riêng với vector riêng tương ứng là:
+    $$
+    (\lambda_1, v_1') \hspace*{10pt} \text{và} \hspace*{10pt} (\lambda_2, v_2')
+    $$
+
+    \item Tiếp theo ta tìm được $\sigma_1 = \sqrt{\lambda_1} = \sqrt{6}$ và $\sigma_2 = \sqrt{\lambda_2} = \sqrt{1} = 1$.
+
+    \item Cuối cùng ta tìm các vector $u_1, u_2$:
+    $$
+    \begin{aligned}
+    u_1 &= \dfrac{1}{\sigma_1} B v_1' = \begin{pmatrix}
+        5 / \sqrt{30} \\
+        2 / \sqrt{30} \\
+        -1 / \sqrt{30} \\
+    \end{pmatrix} \\
+    \text{và} \hspace*{5pt}
+    u_2 &= \dfrac{1}{\sigma_2} B v_2' = \begin{pmatrix}
+        0 \\
+        1 / \sqrt{5} \\
+        2 / \sqrt{5} 
+    \end{pmatrix}
+    \end{aligned}
+    $$
+
+    \item May mắn thay, các vector $u_1, u_2$ đã được chuẩn hoá nên do đó ta tìm thêm $u_3$ sao cho $\{u_1, u_2, u_3\}$ là một cơ sở trực chuẩn của $\mathbb{R}^3$. Khi đó:
+    $$
+    u_3 = u_1 \times u_2 =
+    \begin{pmatrix}
+       1 / \sqrt{6} \\
+       -2 / \sqrt{6} \\
+       1 / \sqrt{6}
+    \end{pmatrix}
+    $$
+
+    \item Vậy ma trận $U$, $V$ và $\Sigma$ cần tìm là:
+    $$
+    U = \begin{pmatrix}
+        5/ \sqrt{30} & 0 & 1 / \sqrt{6} \\
+        2 / \sqrt{30} & 1/\sqrt{5} & -2 / \sqrt{6} \\
+        -1 / \sqrt{30} & 2/\sqrt{5} & 1 / \sqrt{6}
+    \end{pmatrix},
+    \hspace*{5pt}
+    V =
+    \begin{pmatrix}
+        1 / \sqrt{5} & -2 / \sqrt{5} \\
+        2 / \sqrt{5} & 1 / \sqrt{5}
+    \end{pmatrix}
+    \hspace*{5pt}
+    \text{và}
+    \hspace*{5pt}
+    \Sigma = 
+    \begin{pmatrix}
+        \sqrt{6} & 0 \\
+        0 & 1  \\
+        0 & 0 
+    \end{pmatrix}
+    $$
+
+    \item[(a)] Ta có, ma trận $m \times n$ $A$ với $m < n$. Do đó ta sẽ tìm $U$, $V$ và $\Sigma$ thông qua $A^T$ với:
+    $$
+    A^T = V \Sigma^T U^T
+    $$
+
+    \item Đặt $A^T = A'$, $V = U'$, $U = V'$ và $\Sigma^T = \Sigma'$, ta có:
+    $$
+    A' = U' \Sigma' (V')^T
+    $$
+
+    \item Áp dụng giải thuật SVD vào $A'$. Ta đặt $A'' = (A')^T A'$, ta có:
+    $$
+    A'' = \begin{pmatrix}
+        1 & 0 & 1 \\ 
+        -1 & 0 & 1 \\
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & -1 \\ 
+        0 & 0 \\
+        1 & 1 \\
+    \end{pmatrix} = 
+    \begin{pmatrix}
+        2 & 0 \\
+        0 & 2 \\
+    \end{pmatrix}
+    $$
+
+    \item Xét ma trận $\lambda I - A''$ với $\lambda \in \mathbb{R}$, ta có:
+    $$
+    \lambda I - A'' = \begin{pmatrix}
+        \lambda - 2 & 0 \\
+        0 & \lambda - 2
+    \end{pmatrix}
+    $$
+
+    \item Vậy phương trình đặc trưng có 2 nghiệm là: $ \lambda_1 = \lambda_2 = 2$.
+
+    \item Xét $\lambda_1$ (hoặc $\lambda_2$) ta có:
+    $$
+    \begin{pmatrix}
+        0 & 0 \\ 
+        0 & 0
+    \end{pmatrix} v' = 0_v 
+    \implies 
+    v' = \alpha \begin{pmatrix}
+        1 \\ 
+        0
+    \end{pmatrix} + \beta \begin{pmatrix}
+        0 \\
+        1 
+    \end{pmatrix} = \alpha v_1' + \beta v_2' \hspace*{10pt} \text{(với $\alpha, \beta \in \mathbb{R}$)}.
+    $$
+
+    \item Vậy tương ứng ta có các cặp trị riêng và vector riêng là:
+    $$
+    (\lambda_1, v_1') \hspace*{10pt} \text{và} \hspace*{10pt} (\lambda_2, v_2')
+    $$
+
+    \item Khi đó $\sigma'_1 = \sigma'_2 = \sqrt{\lambda_1} = \sqrt{\lambda_2} = \sqrt{2}$.
+
+    \item Tiếp theo ta cần tìm $u'_1, u'_2$:
+    $$
+    u_1 = \dfrac{1}{\sigma'_1} A' v'_1 = \begin{pmatrix}
+        1 / \sqrt{2} \\
+        0 \\
+        1 / \sqrt{2} \\
+    \end{pmatrix} \hspace*{10pt} \text{và} \hspace*{10pt}
+    u_2 = \dfrac{1}{\sigma'_2} A' v'_2 = \begin{pmatrix}
+        -1 / \sqrt{2} \\
+        0 \\
+        1 / \sqrt{2}
+    \end{pmatrix}
+    $$
+
+    \item May mắn thay, $u'_1$ và $u'_2$ tạo nên một cơ sở trực chuẩn. Tiếp theo ta thêm $u_3$ sao cho $u_3$ cùng $u'_1$ và $u'_2$ tạo nên cơ sở trực chuẩn cho $\mathbb{R}^3$.
+    $$
+    u_3 = u'_1 \times u'_2 
+    = \begin{pmatrix}
+    0 \\        
+    -1 \\
+    0
+    \end{pmatrix}
+    $$
+
+    \item Vậy ma trận $U'$, $V'$ và $\Sigma'$ cần tìm là:
+    $$
+    U' =
+    \begin{pmatrix}
+        1/\sqrt{2} & -1/\sqrt{2} & 0 \\
+        0 & 0 & -1 \\
+        1/\sqrt{2} & 1/\sqrt{2} & 0
+    \end{pmatrix},
+    \hspace*{10pt}
+    V' = 
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{pmatrix}
+    \hspace*{10pt}
+    \text{và}
+    \hspace*{10pt}
+    \Sigma' = 
+    \begin{pmatrix}
+        \sqrt{2} & 0 \\
+        0 & \sqrt{2} \\
+        0 & 0 
+    \end{pmatrix}
+    $$
+
+    \item Cuối cùng ta tìm được các ma trận $U$, $V$ và $\Sigma$ là:
+    $$
+    U = V' = 
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{pmatrix},
+    \hspace*{5pt}
+    V = U' =
+    \begin{pmatrix}
+        1/\sqrt{2} & -1/\sqrt{2} & 0 \\
+        0 & 0 & -1 \\
+        1/\sqrt{2} & 1/\sqrt{2} & 0
+    \end{pmatrix} 
+    $$
+    $$
+    \text{và} \hspace*{5pt}
+    \Sigma = (\Sigma')^T =
+    \begin{pmatrix}
+        \sqrt{2} & 0 & 0 \\
+        0 & \sqrt{2} & 0 \\
+    \end{pmatrix}
+    $$
+\end{itemize}
+
+\pagebreak
+%%%%%%%%%%%% Bai 4 %%%%%%%%%%%%%%%%
+\section{Bài 4}
+
+\begin{itemize}
+    \item Gọi $n$ là số lượng TV mà cửa hàng bán trong một tuần. Mà mỗi chiếc TV lợi nhuận được 300 USD chưa trừ chi phí quảng cáo. Vì vậy lợi nhuận của cửa hàng sẽ là:
+    $$
+    300n - \text{tổng chi phí quảng cáo}.
+    $$
+
+    \item Đặt $x, y$ lần lượt là chi phí quảng cáo (chi phí quảng cáo không âm) trên báo chí và trên radio. Khi đó:
+    $$
+    n = \dfrac{7x}{2+x} + \dfrac{4y}{5+y}.
+    $$
+
+    \item Đặt $f: [0, +\infty)^2 \to \mathbb{R}$ là lợi nhuận cửa hàng đạt được trong một tuần, áp dụng lại công thức phía trên, ta có:
+    $$
+    \begin{aligned}
+    f(x, y) &= 300 \left(\dfrac{7x}{2+x} + \dfrac{4y}{5+y}\right) - (x+y) \\
+    &= \dfrac{2100x}{2 + x} + \dfrac{1200y}{5+y} - x - y
+    \end{aligned}
+    $$
+
+    \item[(a)] Ta có:
+    $$
+    \nabla f(x, y) = \begin{pmatrix}
+        \dfrac{4200}{(2 + x)^2} -1 \\
+        \dfrac{6000}{(5 + y)^2}-1 \\
+    \end{pmatrix}
+    $$
+
+    \item Tiếp theo ta tìm ma trận Hasse của $f$:
+    $$
+    \nabla^2 f(x, y) = \begin{pmatrix}
+        \dfrac{-8400}{(2 + x)^3} & 0 \\
+        0 & \dfrac{-12000}{(5 + y)^3}
+    \end{pmatrix}
+    $$
+
+    \item Ta thấy:
+    $$
+    \begin{aligned}
+        D_1 &= \det \left( \begin{pmatrix}
+            \dfrac{-8400}{(2+x)^3} 
+        \end{pmatrix} \right) = \dfrac{-8400}{(2+x)^3} < 0 \\
+        D_2 &= \det(\nabla^2 f(x, y)) = \dfrac{-8400}{(2+x)^3}\dfrac{-12000}{(5+y)^3} > 0
+    \end{aligned}
+    $$
+
+    \item Do $D_1, D_2$ đan dấu nên suy ra $f(x, y)$ là hàm lõm. 
+
+    \item[(b)] Ta thấy $f$ là hàm lõm nên giá trị lớn nhất của $f$ tại điểm $(x_0, y_0)$ sao cho $\nabla f(x_0, y_0) = 0$. 
+
+    \item Xét $g(x) = \dfrac{4200}{(2+x)^2} - 1$ với $x \geq 0$, ta có:
+    $$
+    \begin{aligned}
+    (2+x)^2 &= 4200 \\
+    \implies \hspace*{10pt} x^2 + 4x + 4 &= 4200
+    \end{aligned}
+    $$
+
+    \item Vậy $g(x)$ có nghiệm là $x_1 = -2 + 10\sqrt{42}$ và $x_2 = -2 - 10\sqrt{42}$ mà $x \geq 0$ nên ta lấy nghiệm $x_1$. Do đó $x_0$ cần tìm là $x_1$.
+
+    \item Xét $h(y) = \dfrac{6000}{(5+y)^2}$ với $y \geq 0$, ta có:
+    $$
+    \begin{aligned}
+    (5+y)^2 &= 6000 \\
+    \implies \hspace*{10pt} y^2 + 10y + 25 &= 6000
+    \end{aligned}
+    $$
+
+    \item Vậy $h(y)$ có nghiệm là $y_1 = -5 + 20\sqrt{15}$ và $y_2 = -5 - 20\sqrt{15}$ mà $y \geq 0$ nên ta lấy nghiệm $y_1$. Do đó $y_0$ ta cần tìm là $y_1$.
+
+    \item Kết luận, hàm $f$ đạt giá trị lớn nhất tại $(x_0, y_0) = (-2 + 10\sqrt{42}, -5 + 20\sqrt{15})$.
+
+    \item Chi phí cần bỏ ra để quảng cáo trên báo chí sẽ xấp xỉ $63$ USD và trên radio sẽ xấp xỉ $73$ USD để đạt lợi nhuận lợi nhất.
+\end{itemize}
+
+\end{document}

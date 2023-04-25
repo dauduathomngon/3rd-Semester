@@ -1,0 +1,188 @@
+\documentclass[12pt, a4paper]{article}
+\input{preamble.tex}
+
+\title{Bài tập điểm cộng ngày 17/4/2023 \\[5pt] Môn: Phương pháp Toán cho AI}
+\author{Họ và tên: Lê Nguyễn - MSSV: 21120511}
+
+\newcommand{\mye}[1]{\text{E}[#1]}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\pagebreak
+\section{Câu 1}
+
+\begin{itemize}
+    \item[(a)] \textbf{Chứng minh E$[X]$ và Var$[X]$ của phân phối nhị thức}
+
+    \item Ta có: $P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$.
+
+    \item Ta có:
+    $$
+    \begin{aligned}
+    \text{E}[X] &= \sum_{k=0}^n P(X = k)k \\
+    &= \sum_{k=0}^{n} \binom{n}{k} p^k (1-p)^{n-k} k  \\
+    &= \sum_{k=1}^{n} \binom{n}{k} p^k (1-p)^{n-k} k \\
+    &= np \sum_{k=1}^{n} \dfrac{(n-1)!}{(k-1)!((n-1) - (k-1))!} p^{k-1} (1-p)^{(n-k)} \\
+    &= np \sum_{k=1}^{n} \binom{n-1}{k-1} p^{k-1} (1-p)^{((n-1) - (k-1))}  \\
+    &= np (p - (1-p))^{n-1} \\
+    &= np
+    \end{aligned}
+    $$
+
+    \item Xét $\text{E}[X^2]$, ta có:
+    $$
+    \begin{aligned}
+        \text{E}[X^2] &= \sum_{k=0}^{n} \binom{n}{k} p^k (1-p)^{n-k}k^2 \\
+        &= np\sum_{k=1}^n \binom{n-1}{k-1}p^{k-1}(1-p)^{n-k} k \\
+        &= np \sum_{i=0}^m \binom{m}{i} p^{i}(1-p)^{m - i} (i + 1) \hspace*{10pt} \text{(đặt $i = k-1$ và $m = n-1$).} \\
+        &= np \left( \sum_{i=0}^m \binom{m}{i} p^{i}(1-p)^{m-i}i + \sum_{i=0}^m \binom{m}{i} p^{i}(1-p)^{m-i} \right) \\
+        &= np (mp + 1) \\
+        &= np (np - p + 1) \\
+        &= (np)^2 - np^2 + np
+    \end{aligned}
+    $$
+
+    \item Ta có:
+    $$
+    \begin{aligned}
+        \text{Var}[X] &= \text{E}[X^2] - (\text{E}[X])^2 \\
+        &= \text{E}[X^2] - (np)^2 \\
+        &= (np)^2 - np^2 + np - (np)^2 \\
+        &= np(1-p)
+    \end{aligned}
+    $$
+
+    \item[(b)] \textbf{Chứng minh E$[X]$ và Var$[X]$ của phân phối hình học}
+
+    \item Ta có: $P(X = k) = (1-p)^{k-1}p$.
+
+    \item Ta có:
+    $$
+    \begin{aligned}
+    \text{E}[X] &= \sum_{k=0}^{\infty} P(X = k) k \\
+    &= \sum_{k=0}^{\infty} (1-p)^{k-1}kp \\
+    &= p\sum_{k=1}^{\infty} (1-p)^{k-1}k \\
+    &= p \sum_{k=1}^{\infty} (-(1-p)^{k})' \\
+    &= p \left( -\sum_{k=1}^{\infty} (1-p)^{k} \right)' \\
+    &= p \left( \dfrac{-1}{p} \right)' \\
+    &= p \left(\dfrac{1}{p^2} \right) \\
+    &= \dfrac{1}{p}
+    \end{aligned}
+    $$
+
+    \item Xét $\text{E}[X^2]$, ta có:
+    $$
+    \begin{aligned}
+        \text{E}[X^2] &= \sum_{k=0}^{\infty} P(X=k)k^2 \\
+        &= \sum_{k=0}^{\infty} (1-p)^{k-1}k^2p \\
+        &= p\sum_{k=1}^{\infty} (1-p)^{k-1}k^2 \\
+        &= p\sum_{k=1}^{\infty} (1-p)^{k-1}(k^2 + k - k) \\
+        &= p\sum_{k=1}^{\infty} (1-p)^{k-1}((k+1)k - k) \\
+        &= p \left[ \sum_{k=1}^{\infty} (1-p)^{k-1}(k+1)k - \sum_{k=1}^{\infty} (1-p)^{k-1}k \right] \\
+        &= p \left[ \sum_{k=1}^{\infty} \left( (1-p)^{k+1} \right)''  - \dfrac{1}{p^2} \right] \\
+        &= p \left[ \left( (1-p)\sum_{k=1}^{\infty} (1-p)^k \right)'' - \dfrac{1}{p^2} \right] \\
+        &= p \left[ \left( \dfrac{1-p}{p} \right)'' - \dfrac{1}{p^2} \right] \\
+        &= p \left( \dfrac{2}{p^3} - \dfrac{1}{p^2} \right) \\
+        &= \dfrac{2}{p^2} - \dfrac{1}{p}
+    \end{aligned}
+    $$
+
+    \item Ta có:
+    $$
+    \begin{aligned}
+        \text{Var}[X] &= \text{E}[X^2] - (\text{E}[X])^2 \\
+        &= \dfrac{2}{p^2} - \dfrac{1}{p} - \dfrac{1}{p^2} \\
+        &= \dfrac{1}{p^2} - \dfrac{1}{p} \\
+        &= \dfrac{1 - p}{p^2}
+    \end{aligned}
+    $$
+
+    \item[(c)] \textbf{Chứng minh E$[X]$ và Var$[X]$ của phân phối Poisson}
+
+    \item Ta có:
+    $$
+    P(X = k) = \dfrac{\lambda^k e^{-\lambda}}{k!}
+    $$
+
+    \item Ta có:
+    $$
+    \begin{aligned}
+    \text{E}[X] 
+    &= \sum_{k=0}^{\infty} k \dfrac{\lambda^k e^{-\lambda}}{k!} \\ 
+    &= \sum_{k=1}^{\infty} k \dfrac{\lambda^k e^{-\lambda}}{k!} \\ 
+    &= \lambda e^{-\lambda} \sum_{k=1}^{\infty} \dfrac{\lambda^{k-1}}{(k-1)!} \\
+    &= \lambda e^{-\lambda} \sum_{i=0}^{\infty} \dfrac{\lambda^{i}}{i!} \hspace*{10pt} \text{(đặt $i = k-1$)} \\
+    &= \lambda e^{-\lambda} e^{\lambda} \hspace*{10pt} \text{(khai triển taylor của $e^x$)} \\
+    &= \lambda
+    \end{aligned}
+    $$
+
+    \item Xét $\text{E}[X^2]$, ta có:
+    $$
+    \begin{aligned}
+        \text{E}[X^2] &= \sum_{k=0}^{\infty} P(X = k)k^2 \\
+        &= \sum_{k=0}^{\infty} k^2 \dfrac{\lambda^k e^{-\lambda}}{k!} \\
+        &= \sum_{k=1}^{\infty} k^2 \dfrac{\lambda^k e^{-\lambda}}{k!}  \\
+        &= \lambda e^{-\lambda} \sum_{k=1}^{\infty} k \dfrac{\lambda^{k-1}}{(k-1)!} \\
+        &= \lambda e^{-\lambda} \sum_{k=1}^{\infty} k \dfrac{\lambda^{k-1}}{(k-1)!} \\
+        &= \lambda e^{-\lambda} \sum_{i=0}^{\infty} (i+1) \dfrac{\lambda^{i}}{i!} \hspace*{10pt} \text{(đặt $i = k - 1$)} \\
+        &= \lambda e^{-\lambda} \left( \sum_{i=0}^{\infty} i \dfrac{\lambda^{i}}{i!} + \sum_{i=1}^{\infty} \dfrac{\lambda^{i}}{i!} \right) \\
+        &= \lambda e^{-\lambda} (\lambda e^{\lambda} + e^{\lambda}) \\
+        &= \lambda^2 + \lambda
+    \end{aligned}
+    $$
+
+    \item Ta có:
+    $$
+    \begin{aligned}
+        \text{Var}[X^2] &= \text{E}[X^2] - (\text{E}[X])^2 \\
+        &= \lambda^2 + \lambda - \lambda^2 \\
+        &= \lambda
+    \end{aligned}
+    $$
+\end{itemize}
+\pagebreak
+
+\section{Câu 2}
+
+\begin{itemize}
+    \item Ta có: 
+    $$
+    \text{Cov}(X, Y) = \mye{XY} - \mye{X} \mye{Y}
+    $$
+
+    \item[(a)] Ta có:
+    $$
+    \begin{aligned}
+    \text{Cov}(aX + b, Y) &= \mye{(aX+b)Y} - \mye{aX+b}\mye{Y} \\
+    &= \mye{aXY + bY} - (a\mye{X} + b)\mye{Y} \\
+    &= a\mye{XY} + b\mye{Y} - a\mye{X}\mye{Y} -b \mye{Y} \\
+    &= a(\mye{XY} - \mye{X}\mye{Y}) \\
+    &= a \text{Cov}(X, Y)
+    \end{aligned}
+    $$
+
+    \item[(b)] Ta có:
+    $$
+    \begin{aligned}
+    \text{Cov}(X + Y, Z) &= \mye{(X+Y)Z} - \mye{X+Y}\mye{Z} \\
+    &= \mye{XZ} + \mye{YZ} - \mye{X}\mye{Z} - \mye{Y}\mye{Z} \\
+    &= (\mye{XZ} - \mye{X}\mye{Z}) + (\mye{YZ} - \mye{Y}\mye{Z}) \\
+    &= \text{Cov}(X, Z) + \text{Cov}(Y, Z)
+    \end{aligned}
+    $$
+
+    \item[(c)] Ta có:
+    $$
+    \begin{aligned}
+        \text{Var}[X + Y] &= \mye{(X+Y)^2} - \mye{X + Y}^2 \\
+        &= \mye{X^2 + 2XY + Y^2} - (\mye{X}^2 + 2\mye{X}\mye{Y} + \mye{Y}^2) \\
+        &= (\mye{X^2} - \mye{X}^2) + (\mye{Y^2} - \mye{Y}^2) + 2 (\mye{XY} - \mye{X}\mye{Y}) \\
+        &= \text{Var}[X] + \text{Var}[Y] + 2\text{Cov}(X, Y)
+    \end{aligned}
+    $$
+\end{itemize}
+
+\end{document}
