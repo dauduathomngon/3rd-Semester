@@ -20,10 +20,11 @@ public:
 	// input/output
 	void Input() override;
 	void Output() override;
-	void SetValue(int type, const char* val) override;
+	/*void SetValue(int type, const char* val) override;*/
 
 	// getter
 	float GetSalary() const override;
+	char* GetType() const override;
 
 private:
 	int m_ProductQuantity;

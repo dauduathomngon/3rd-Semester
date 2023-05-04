@@ -10,6 +10,7 @@
 
 const float NVCN_SALARY = 500.000f;
 const float NVSX_SALARY = 50.000f;
+const int MAX_LEN = 100;
 
 class NhanVien
 {
@@ -27,27 +28,26 @@ public:
 	// input/output
 	virtual void Input();
 	virtual void Output();
-	virtual void SetValue(int type, const char* val);
+	/*virtual void SetValue(int type, const char* val);*/
 
 	// getter
 	virtual float GetSalary() const;
 	char* GetID() const;
 	char* GetName() const;
-	char* GetMonthOfBirth() const;
+	int GetMonthOfBirth() const;
 	int GetAge() const;
+	virtual char* GetType() const;
 
-private:
+protected:
 	char* m_ID; // toi da 5 ki tu
 	char* m_Name;
 	char* m_Birthday;
 	char* m_Address;
-
-	int m_Gender; // 0: nam, 1: nu
-
-	// tuoi nhan vien la 18-60 cho nam
-	// 18-55 cho nu
-
+	char* m_Gender; // tuoi nhan vien la 18-60 cho nam
+					// 18-55 cho nu
+private:
 	void SetString(char*& des, const char* src);
+	void InputString(char*& des, int type);
 	bool CheckAge();
 	int FindAge() const;
 };

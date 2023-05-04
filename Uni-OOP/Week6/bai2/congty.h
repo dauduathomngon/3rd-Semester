@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <fstream>
+#include <vector>
 
 #include "nvcongnhat.h"
 #include "nvsanxuat.h"
@@ -27,7 +28,8 @@ public:
 	void ReadFromFile();
 	void WriteBelowAvg();
 
-	void OutputListEmployee();
+	void Input();
+	void Output();
 
 	void FindHighestSalary();
 	void FindID(const char* ID);
@@ -42,10 +44,11 @@ public:
 	float GetHighestSalary() const;
 
 private:
-	NhanVien** m_DanhSach;
+	NhanVien** m_DanhSachNV;
 	int m_Size;
 
 	void Delete();
+	void Remove(int idx);
 };
 
 #endif // CONGTY_H

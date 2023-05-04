@@ -1,14 +1,14 @@
 #include "nvsanxuat.h"
 
 NVSanXuat::NVSanXuat() // DONE
-: NhanVien()
-, m_ProductQuantity(0)
+	: NhanVien()
+	, m_ProductQuantity(0)
 {
 }
 
 NVSanXuat::NVSanXuat(const NVSanXuat& sx) // DONE
-: NhanVien(sx)
-, m_ProductQuantity(sx.m_ProductQuantity)
+	: NhanVien(sx)
+	, m_ProductQuantity(sx.m_ProductQuantity)
 {
 }
 
@@ -24,33 +24,44 @@ NVSanXuat* NVSanXuat::Clone() const // DONE
 void NVSanXuat::Input() // DONE
 {
 	NhanVien::Input();
-	std::cout << "Moi ban nhap so san pham: ";
-	std::cin >> m_ProductQuantity;
+	do
+	{
+		std::cout << "Moi ban nhap so san pham (so san pham hop le la tu 10 cho den 15): ";
+		std::cin >> m_ProductQuantity;
+	} while (m_ProductQuantity < 10 || m_ProductQuantity > 15);
 }
 
 void NVSanXuat::Output() // DONE
 {
+	std::cout << "------------------------\n";
 	std::cout << "La nhan vien san xuat \n";
 	NhanVien::Output();
 	std::cout << "So san pham: " << m_ProductQuantity << "\n";
+	std::cout << "------------------------\n";
 }
 
-void NVSanXuat::SetValue(int type, const char* val) // DONE
-{
-	switch (type)
-	{
-	case(5): // PRODUCT QUANTITY
-		assert((m_ProductQuantity <= 15) && (m_ProductQuantity >= 10));
-		m_ProductQuantity = std::atoi(val);
-		break;
-
-	default:
-		NhanVien::SetValue(type, val);
-		break;
-	}
-}
+//void NVSanXuat::SetValue(int type, const char* val) // DONE
+//{
+//	switch (type)
+//	{
+//	case(5): // PRODUCT QUANTITY
+//		m_ProductQuantity = std::atoi(val);
+//		break;
+//
+//	default:
+//		NhanVien::SetValue(type, val);
+//		break;
+//	}
+//}
 
 float NVSanXuat::GetSalary() const // DONE
 {
 	return NVSX_SALARY * m_ProductQuantity;
+}
+
+char* NVSanXuat::GetType() const
+{
+	char* type = new char[9]();
+	strcpy_s(type, 9, "san xuat");
+	return type;
 }
